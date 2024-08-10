@@ -1,0 +1,93 @@
+.premium-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .premium-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .premium-header h1 {
+    font-size: 2.5rem;
+    color: #1db954;
+  }
+  
+  .premium-header p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .premium-plans {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .plan-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .plan-card h2 {
+    font-size: 1.5rem;
+    color: #1db954;
+    margin-bottom: 10px;
+  }
+  
+  .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+  }
+  
+  .plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .plan-card ul li {
+    margin-bottom: 10px;
+  }
+  
+  .subscribe-button {
+    background: #1db954;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .subscribe-button:hover {
+    background: #17a34a;
+  }
+  
+  .premium-footer {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .premium-footer a {
+    color: #1db954;
+    text-decoration: none;
+  }
+  
+  .premium-footer a:hover {
+    text-decoration: underline;
+  }
+  

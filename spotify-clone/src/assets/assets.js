@@ -41,6 +41,9 @@ import img16 from './img16.jpg'
 import song1 from  './song1.mp3'
 import song2 from  './song2.mp3'
 import song3 from  './song3.mp3'
+import cross_icon from './cross_icon.png';
+import logOut_icon from './logout_icon.png'
+import download_icon from './icons8-download-24.png'
 
 export const assets = {
     bell_icon,
@@ -50,6 +53,7 @@ export const assets = {
     mic_icon,
     next_icon,
     play_icon,
+    logOut_icon,
     plays_icon,
     prev_icon,
     search_icon,
@@ -58,6 +62,8 @@ export const assets = {
     stack_icon,
     zoom_icon,
     plus_icon,
+    download_icon,
+    cross_icon,
     arrow_icon,
     mini_player_icon,
     volume_icon,

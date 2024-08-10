@@ -1,0 +1,107 @@
+/* Overlay background for login form */.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Darker black with more opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top of other content */
+}
+
+/* Login form container */
+.login-popup-container {
+  width: 90%;
+  max-width: 400px;
+  background-color: white;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  position: relative; /* Make sure the cross icon can be positioned absolutely */
+  animation: fadeIn 0.5s;
+}
+
+/* Cross icon positioning */
+.login-popup-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.login-popup-title h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.login-popup-title img {
+  width: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* Button color to Spotify color */
+.login-popup-container button {
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  color: white;
+  background-color: #1db954; /* Spotify green */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-popup-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-popup-inputs input {
+  outline: none;
+  border: 1px solid #dcdcdc;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.login-popup-condition {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.login-popup-condition input {
+  margin: 0;
+}
+
+.login-popup p span {
+  color: #1db954; /* Spotify green */
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-popup p span:hover {
+  color: #1aa34a;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
