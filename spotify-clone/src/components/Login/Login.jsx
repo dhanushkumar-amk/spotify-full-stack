@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Login.css';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Cursor } from 'mongoose';
+
 
 const Login = ({setShowLogin}) => {
   const {url, setToken} = useContext(PlayerContext);
