@@ -1,4 +1,5 @@
-import {useState} from 'react';import {Route, Routes, Navigate} from 'react-router-dom';
+import {useState} from 'react';
+import {Route, Routes, Navigate} from 'react-router-dom';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddSong from './pages/AddSong/AddSong';
@@ -10,7 +11,7 @@ import Navbar from './components/Navbar/Navbar';
 import Welcome from './components/WelcomePage/Welcome';
 import LoginForm from './components/Login/Login';
 
-export const url = 'http://localhost:4000';
+export const url = 'https://spotify-backend-1-igxg.onrender.com';
 
 const App = () => {
   const [showAuth, setShowAuth] = useState(false);

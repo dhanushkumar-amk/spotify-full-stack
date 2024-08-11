@@ -1,5 +1,4 @@
-import {createContext, useEffect, useRef, useState} from 'react';
-import axios from 'axios';
+import {createContext, useEffect, useRef, useState} from 'react';import axios from 'axios';
 import {toast} from 'react-toastify';
 
 export const PlayerContext = createContext();
@@ -8,7 +7,7 @@ const PlayerContextProvider = (props) => {
   const audioRef = useRef();
   const seekBg = useRef();
   const seekBar = useRef();
-  const url = 'http://localhost:4000';
+  const url = 'https://spotify-backend-1-igxg.onrender.com';
 
   const [songsData, setSongsData] = useState([]);
   const [albumsData, setAlbumData] = useState([]);
