@@ -1,4 +1,4 @@
-import {useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {assets} from '../../assets/assets';
 import {PlayerContext} from '../../context/PlayerContext';
 import axios from 'axios';
@@ -6,16 +6,15 @@ import './Login.css';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const Login = ({setShowLogin}) => {
   const {url, setToken} = useContext(PlayerContext);
   const [currState, setCurrState] = useState('Sign Up');
-
   const [data, setData] = useState({
     name: '',
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
@@ -25,6 +24,7 @@ const Login = ({setShowLogin}) => {
 
   const onLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading indicator
 
     let new_url = url;
     if (currState === 'Login') {
@@ -48,6 +48,8 @@ const Login = ({setShowLogin}) => {
       }
     } catch (error) {
       toast.error('An error occurred while processing your request.');
+    } finally {
+      setLoading(false); // Stop loading indicator after request completes
     }
   };
 
@@ -95,8 +97,14 @@ const Login = ({setShowLogin}) => {
               required
             />
           </div>
-          <button type='submit'>
-            {currState === 'Login' ? 'Login' : 'Create account'}
+          <button
+            type='submit'
+            disabled={loading}>
+            {loading
+              ? 'Loading...'
+              : currState === 'Login'
+              ? 'Login'
+              : 'Create account'}
           </button>
           <div className='login-popup-condition'>
             <input
@@ -114,23 +122,24 @@ const Login = ({setShowLogin}) => {
           {currState === 'Login' ? (
             <p>
               Create a new account?{' '}
-              <span onClick={() => setCurrState('Sign Up')}
-                className='cursor-pointer hover:text-green-700'
-                
-              >Click here</span>
+              <span
+                onClick={() => setCurrState('Sign Up')}
+                className='cursor-pointer hover:text-green-700'>
+                Click here
+              </span>
             </p>
           ) : (
             <p>
               Already have an account?{' '}
-              
-              <span onClick={() => setCurrState('Login')}  
-              className='cursor-pointer hover:text-green-700'
-              >Login here</span>
+              <span
+                onClick={() => setCurrState('Login')}
+                className='cursor-pointer hover:text-green-700'>
+                Login here
+              </span>
             </p>
           )}
         </form>
       </div>
-    
     </>
   );
 };

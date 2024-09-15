@@ -1,4 +1,5 @@
-import {createContext, useEffect, useRef, useState} from 'react';import axios from 'axios';
+import {createContext, useEffect, useRef, useState} from 'react';
+import axios from 'axios';
 import {toast} from 'react-toastify';
 
 export const PlayerContext = createContext();
@@ -122,7 +123,6 @@ const PlayerContextProvider = (props) => {
     );
     if (isShuffling) {
       currentIndex = Math.floor(Math.random() * songsData.length);
-      setPlayStatus(true);
     } else {
       currentIndex++;
     }
@@ -282,11 +282,15 @@ const PlayerContextProvider = (props) => {
     setIsLoggedIn(false);
   };
 
-  const downloadSong = async (trackId) => {
+  const downloadSongFromCloudinary = async (trackId) => {
     try {
-      const response = await axios.get(`${url}/api/song/download/${trackId}`, {
-        responseType: 'blob', // Ensure the response is a blob
-      });
+      // Construct the download URL using your Cloudinary cloud name and the file public ID
+      const response = await axios.get(
+        `https://res.cloudinary.com/ddcqjydoe/raw/upload/v1/${trackId}`,
+        {
+          responseType: 'blob', // Ensure the response is a blob
+        }
+      );
 
       // Create a link element to download the file
       const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
@@ -298,7 +302,7 @@ const PlayerContextProvider = (props) => {
       document.body.removeChild(link);
     } catch (error) {
       console.error('Error downloading the song:', error);
-      toast.error('Error downloading the song.');
+      toast.error('Error downloading the song from Cloudinary.');
     }
   };
 
@@ -329,7 +333,7 @@ const PlayerContextProvider = (props) => {
     toggleLoop,
     isShuffling,
     toggleShuffle,
-    downloadSong,
+    downloadSongFromCloudinary,
     handleSearch,
     searchTerm,
     volume,

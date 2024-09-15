@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';import {PlayerContext} from '../context/PlayerContext';
+import React, {useContext} from 'react';
+import {PlayerContext} from '../context/PlayerContext';
 import {FaDownload} from 'react-icons/fa'; // Import the download icon
 import {assets} from '../assets/assets';
 import {toast} from 'react-toastify';
@@ -23,11 +24,7 @@ const Player = () => {
     volume,
     changeVolume,
     addToQueue,
-    downloadSong,
-
-    // isLoggedIn,
-    // login,
-    // logout,
+    downloadSongFromCloudinary,
   } = useContext(PlayerContext);
 
   const handleToggleLoop = () => {
@@ -51,7 +48,7 @@ const Player = () => {
 
   const handleDownload = () => {
     if (track) {
-      downloadSong(track.id); // Assuming track.id is available
+      downloadSongFromCloudinary(track._id); // Use the new download function
       toast.success('Downloading...');
     } else {
       toast.error('No track selected for download');
@@ -170,12 +167,13 @@ const Player = () => {
           onChange={changeVolume}
           className='w-30 h-3 cursor-pointer accent-green-500'
         />
-        {track &&(
-        <FaDownload
-          onClick={() => downloadSong(track._id)}
-          className='w-4  cursor-pointer'
-          title='Download'
-        />
+        {track && (
+          <FaDownload
+            onClick={handleDownload}
+            className='w-4 cursor-pointer'
+            title='Download'
+            download
+          />
         )}
       </div>
     </div>
