@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Preminum.css'; 
+import React from 'react';import {useNavigate} from 'react-router-dom';
+import RazorpayPayment from '../RazorPayPayment'; // Import the RazorpayPayment component
+import './Preminum.css';
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -9,8 +9,7 @@ const Premium = () => {
     <div className='container'>
       <button
         className='back-button'
-        onClick={() => navigate('/')}
-      >
+        onClick={() => navigate('/')}>
         Back
       </button>
       <header className='header'>
@@ -29,7 +28,10 @@ const Premium = () => {
             <li>Unlimited skips</li>
             <li>High-quality audio</li>
           </ul>
-          <button className='button'>Subscribe Now</button>
+          <RazorpayPayment
+            amount={9.99}
+            plan='Individual'
+          />
         </div>
         <div className='plan-card'>
           <h2 className='plan-title'>Family</h2>
@@ -39,7 +41,10 @@ const Premium = () => {
             <li>Up to 6 accounts</li>
             <li>Parental controls</li>
           </ul>
-          <button className='button'>Subscribe Now</button>
+          <RazorpayPayment
+            amount={14.99}
+            plan='Family'
+          />
         </div>
         <div className='plan-card'>
           <h2 className='plan-title'>Student</h2>
@@ -48,13 +53,18 @@ const Premium = () => {
             <li>All Individual benefits</li>
             <li>For eligible students</li>
           </ul>
-          <button className='button'>Subscribe Now</button>
+          <RazorpayPayment
+            amount={4.99}
+            plan='Student'
+          />
         </div>
       </section>
       <footer className='footer'>
         <p>
           Have any questions?{' '}
-          <a href='/support' className='link'>
+          <a
+            href='/support'
+            className='link'>
             Contact Support
           </a>
         </p>
