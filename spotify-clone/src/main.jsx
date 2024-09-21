@@ -9,8 +9,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <PlayerContextProvider>
-        <App />
-        {/* <LandingPage/> */}
+        {/* <App /> */}
+        <LandingPage/>
       </PlayerContextProvider>
     </BrowserRouter>
   </React.StrictMode>

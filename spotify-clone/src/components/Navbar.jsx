@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlayerContext } from '../context/PlayerContext';
 import { toast } from 'react-toastify';
@@ -161,17 +161,17 @@ const Navbar = ({ setShowLogin }) => {
           {!noResults && (
             <>
               <p
-                onClick={() => handleClick('/all')}
+                // onClick={() => handleClick('/all')}
                 className='bg-white text-black px-4 py-1 rounded-2xl cursor-pointer'>
                 All
               </p>
               <p
-                onClick={() => handleClick('/music')}
+                // onClick={() => handleClick('/music')}
                 className='bg-black px-4 py-1 rounded-2xl cursor-pointer'>
                 Music
               </p>
               <p
-                onClick={() => handleClick('/podcasts')}
+                // onClick={() => handleClick('/podcasts')}
                 className='bg-black px-4 py-1 rounded-2xl cursor-pointer'>
                 Albums
               </p>

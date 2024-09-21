@@ -22,12 +22,14 @@ const PlayerContextProvider = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [volume, setVolume] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [time, setTime] = useState({
     currentTime: {second: 0, minute: 0},
     totalTime: {second: 0, minute: 0},
   });
 
+  // const [lyrics, setLyrics] = useState('');
+
+  // Persist user login status
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -36,6 +38,7 @@ const PlayerContextProvider = (props) => {
     }
   }, []);
 
+  // Play/Pause functionality
   const play = () => {
     if (audioRef.current) {
       audioRef.current
@@ -55,103 +58,49 @@ const PlayerContextProvider = (props) => {
     }
   };
 
+  // Play track by id
   const playWithId = async (id) => {
-    if (!token) {
-      toast.error('Please log in to play a song.');
-      return;
-    }
-
-    const selectedTrack = songsData.find((item) => item._id === id);
-
-    if (selectedTrack) {
-      if (track?._id === selectedTrack._id && playStatus) {
-        pause();
-      } else {
-        setTrack(selectedTrack);
-
-        if (audioRef.current) {
-          audioRef.current.src = selectedTrack.url;
-
-          if (!selectedTrack.url) {
-            console.error('Invalid URL:', selectedTrack.url);
-            return;
-          }
-
-          console.log('Playing track:', selectedTrack.name);
-
-          try {
-            await audioRef.current.play();
-            setPlayStatus(true);
-          } catch (error) {
-            console.error('Error playing the track:', error);
-            setPlayStatus(false);
-          }
-        } else {
-          console.error('Audio reference is not initialized');
+    await songsData.map((item) => {
+        if (id === item._id) {
+            setTrack(item);
         }
-      }
-    } else {
-      console.error('Selected track not found with ID:', id);
-    }
-  };
+    })
+        ;
+    await audioRef.current.play();
+    setPlayStatus(true);
+}
+
 
   const previous = async () => {
-    const currentIndex = songsData.findIndex(
-      (item) => track && track._id === item._id
-    );
-    if (currentIndex > 0) {
-      const previousTrack = songsData[currentIndex - 1];
-      setTrack(previousTrack);
-      if (audioRef.current) {
-        audioRef.current.src = previousTrack.url;
-        try {
-          await audioRef.current.play();
-          setPlayStatus(true);
-        } catch (error) {
-          console.error('Error playing the track:', error);
-          setPlayStatus(false);
+    songsData.map(async (item, index) => {
+        if (track._id === item._id && index > 0) {
+            await setTrack(songsData[index - 1]);
+            await audioRef.current.play();
+            setPlayStatus(true);
         }
-      }
-    } else {
-      toast.info('No previous song available');
-    }
-  };
+    })
 
-  const next = async () => {
-    let currentIndex = songsData.findIndex(
-      (item) => track && track._id === item._id
-    );
-    if (isShuffling) {
-      currentIndex = Math.floor(Math.random() * songsData.length);
-    } else {
-      currentIndex++;
-    }
+}
 
-    if (currentIndex < songsData.length) {
-      const nextTrack = songsData[currentIndex];
-      setTrack(nextTrack);
-      if (audioRef.current) {
-        audioRef.current.src = nextTrack.url;
-        try {
-          await audioRef.current.play();
-          setPlayStatus(true);
-        } catch (error) {
-          console.error('Error playing the track:', error);
-          setPlayStatus(false);
+const next = async () => {
+    songsData.map(async (item, index) => {
+        if (track._id === item._id && index < songsData.length-1) {
+            await setTrack(songsData[index + 1]);
+            await audioRef.current.play();
+            setPlayStatus(true);
         }
-      }
-    } else {
-      toast.info('No next song available');
-    }
-  };
+    })
+}
 
+  // Seek functionality
   const seekSong = (e) => {
     if (audioRef.current && seekBg.current) {
       const seekPercentage = e.nativeEvent.offsetX / seekBg.current.offsetWidth;
       audioRef.current.currentTime = seekPercentage * audioRef.current.duration;
     }
   };
-
+ 
+  // Fetch songs and albums from backend
   const getSongsData = async () => {
     try {
       const response = await axios.get(`${url}/api/song/list`);
@@ -180,6 +129,7 @@ const PlayerContextProvider = (props) => {
     getAlbumsData();
   }, []);
 
+  // Update seek bar
   useEffect(() => {
     const updateSeekbar = () => {
       if (audioRef.current && seekBar.current) {
@@ -210,12 +160,7 @@ const PlayerContextProvider = (props) => {
           .catch((error) => console.error('Error playing the track:', error));
       } else {
         next();
-      }
-    };
-
-    const handleLoadedMetadata = () => {
-      if (audioRef.current) {
-        updateSeekbar();
+        // updateSeekbar();
       }
     };
 
@@ -223,24 +168,17 @@ const PlayerContextProvider = (props) => {
     if (audio) {
       audio.addEventListener('timeupdate', updateSeekbar);
       audio.addEventListener('ended', handleEnded);
-      audio.addEventListener('loadedmetadata', handleLoadedMetadata);
 
       return () => {
         audio.removeEventListener('timeupdate', updateSeekbar);
         audio.removeEventListener('ended', handleEnded);
-        audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
       };
     }
-  }, [audioRef, isLooping, next]);
+  }, [isLooping, next]);
 
-  const toggleLoop = () => {
-    setIsLooping((prev) => !prev);
-  };
-
-  const toggleShuffle = () => {
-    setIsShuffling((prev) => !prev);
-  };
-
+  // Toggle shuffle/loop, volume control
+  const toggleLoop = () => setIsLooping((prev) => !prev);
+  const toggleShuffle = () => setIsShuffling((prev) => !prev);
   const changeVolume = (e) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
@@ -249,6 +187,7 @@ const PlayerContextProvider = (props) => {
     }
   };
 
+  // Search functionality
   const handleSearch = (term) => {
     setSearchTerm(term);
     const lowercasedTerm = term.toLowerCase().trim();
@@ -270,6 +209,7 @@ const PlayerContextProvider = (props) => {
     );
   };
 
+  // Login and Logout functionality
   const handleLogin = (token) => {
     localStorage.setItem('token', token);
     setToken(token);
@@ -282,27 +222,15 @@ const PlayerContextProvider = (props) => {
     setIsLoggedIn(false);
   };
 
-  const downloadSongFromCloudinary = async (trackId) => {
+  const fetchLyrics = async (artist, title) => {
     try {
-      // Construct the download URL using your Cloudinary cloud name and the file public ID
       const response = await axios.get(
-        `https://res.cloudinary.com/ddcqjydoe/raw/upload/v1/${trackId}`,
-        {
-          responseType: 'blob', // Ensure the response is a blob
-        }
+        `https://api.lyrics.ovh/v1/${artist}/${title}`
       );
-
-      // Create a link element to download the file
-      const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.setAttribute('download', `song-${trackId}.mp3`); // Specify a default filename
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      setLyrics(response.data.lyrics || 'Lyrics not found.');
     } catch (error) {
-      console.error('Error downloading the song:', error);
-      toast.error('Error downloading the song from Cloudinary.');
+      console.error('Error fetching lyrics:', error);
+      setLyrics('Error fetching lyrics.');
     }
   };
 
@@ -333,7 +261,6 @@ const PlayerContextProvider = (props) => {
     toggleLoop,
     isShuffling,
     toggleShuffle,
-    downloadSongFromCloudinary,
     handleSearch,
     searchTerm,
     volume,
