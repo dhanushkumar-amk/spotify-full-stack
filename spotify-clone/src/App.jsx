@@ -5,10 +5,11 @@ import Sidebar from './components/Sidebar';
 import Player from './components/Player';
 import Display from './components/Display';
 import {PlayerContext} from './context/PlayerContext';
-import {ToastContainer} from 'react-toastify';
+// import {ToastContainer} from 'react-toastify';
 import LikedAlbums from './components/LikedAlbum';
 import Premium from './components/premium/Premium';
 import Profile from './components/Profile'; 
+import  toast, {Toaster}  from 'react-hot-toast';
 
 const App = () => {
   const {audioRef, track, songsData} = useContext(PlayerContext);
@@ -31,7 +32,12 @@ const App = () => {
   return (
     <>
     <div className='h-screen bg-black'>
-      <ToastContainer />
+    <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
+    
+      {/* <ToastContainer/> */}
       {loading ? ( // Show loader when loading is true
         <div className='loader-container'>
           <div className='spinner'></div> {/* Custom spinner */}
@@ -56,6 +62,7 @@ const App = () => {
               {/* Add other routes here */}
             </Routes>
             {!isPremiumPage && <Display />}
+          
           </div>
         )
       )}

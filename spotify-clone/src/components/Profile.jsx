@@ -3,7 +3,8 @@ import { PlayerContext } from '../context/PlayerContext';
 import { FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { FiUser } from 'react-icons/fi';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
+// import { toast } from 'react-toastify';
 
 const Profile = () => {
   const { user, setToken } = useContext(PlayerContext);
@@ -34,6 +35,7 @@ const Profile = () => {
 
   const handleSaveChanges = () => {
     localStorage.setItem('userData', JSON.stringify(editUserData));
+    toast.success("profile saved")
     setIsEditing(false);
   };
 
@@ -72,7 +74,9 @@ const Profile = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setToken('');
-    toast.success('Logged out successfully');
+    toast('Logout Successfully!', {
+      icon: '⭕',
+    });
     navigate('/');
   };
 

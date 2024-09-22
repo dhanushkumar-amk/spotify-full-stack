@@ -1,4 +1,5 @@
-/* Premium.css */.container {
+/* Premium.css */
+.container {
   font-family: 'Roboto', sans-serif;
   color: #333;
   padding: 30px;
@@ -48,7 +49,7 @@
 .plans {
   display: flex;
   flex-direction: row;
-  align-items: stretch; /* Ensure all cards are of the same height */
+  align-items: stretch;
   overflow-x: auto;
   gap: 20px;
   padding: 10px 0;
@@ -62,7 +63,7 @@
   border: 1px solid #ddd;
   border-radius: 12px;
   padding: 25px;
-  flex: 1; /* Ensures that all cards grow to the same height */
+  flex: 1;
   text-align: center;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -97,10 +98,10 @@
 
 .features li {
   margin-bottom: 12px;
-  font-size: 1rem; /* Adjusted font size for better readability */
+  font-size: 1rem;
 }
 
-.button {
+.subscribe-button {
   background: #1db954;
   color: #fff;
   border: none;
@@ -112,7 +113,7 @@
   z-index: 3;
 }
 
-.button:hover {
+.subscribe-button:hover {
   background: #17a34a;
   transform: scale(1.05);
 }
@@ -130,4 +131,74 @@
 
 .link:hover {
   text-decoration: underline;
+}
+
+/* Popup Styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+}
+
+.popup-content {
+  background: linear-gradient(145deg, #1a1a1a, #0e0e0e);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 450px;
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: #1db954;
+  font-size: 28px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.email-input {
+  margin: 15px 0;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  color: #000;
+  transition: border 0.3s ease;
+}
+
+.email-input:focus {
+  outline: none;
+  border: 2px solid #1db954;
+}
+
+.confirm-button {
+  background: #1db954;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.confirm-button:hover {
+  background: #17a34a;
+  transform: scale(1.05);
 }

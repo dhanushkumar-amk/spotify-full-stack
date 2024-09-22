@@ -2,7 +2,8 @@ import React, {useContext, useState, useEffect} from 'react';import {useParams} 
 import {PlayerContext} from '../context/PlayerContext';
 import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai';
 import {assets} from '../assets/assets'; // Ensure this import is correct
-import {toast} from 'react-toastify';
+import toast from 'react-hot-toast';
+// import {toast} from 'react-toastify';
 
 // Helper function to convert duration from "mm:ss" to seconds
 const durationToSeconds = (duration) => {

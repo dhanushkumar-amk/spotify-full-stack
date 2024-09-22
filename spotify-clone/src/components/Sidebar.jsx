@@ -13,11 +13,10 @@ const Sidebar = () => {
           onClick={() => navigate('/')}
           className='flex items-center gap-3 pl-8 cursor-pointer'>
           <img
-            className='w-6'
-            src={assets.home_icon}
-            alt=''
+            className='w-40'
+            src='https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg'
+            alt='Spotify Logo'
           />
-          <p className='font-bold'>Home</p>
         </div>
         {/* <div className='flex items-center gap-3 pl-8 cursor-pointer'>
           <img

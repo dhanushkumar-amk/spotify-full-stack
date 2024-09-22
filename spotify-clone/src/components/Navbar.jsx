@@ -1,9 +1,11 @@
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlayerContext } from '../context/PlayerContext';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { assets } from '../assets/assets';
 import { FiUser } from 'react-icons/fi'; // Default user icon
+import toast from 'react-hot-toast';
+
 
 const Navbar = ({ setShowLogin }) => {
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ const Navbar = ({ setShowLogin }) => {
   const handleClick = (path) => {
     if (!token) {
       toast.info('Please log in to access this feature');
+     toast.success("Hello")
       setShowLogin(true);
     } else {
       navigate(path);
@@ -156,29 +159,8 @@ const Navbar = ({ setShowLogin }) => {
       </div>
 
       {/* Category navigation when logged in */}
-      {token && (
-        <div className='flex items-center gap-2 mt-4'>
-          {!noResults && (
-            <>
-              <p
-                // onClick={() => handleClick('/all')}
-                className='bg-white text-black px-4 py-1 rounded-2xl cursor-pointer'>
-                All
-              </p>
-              <p
-                // onClick={() => handleClick('/music')}
-                className='bg-black px-4 py-1 rounded-2xl cursor-pointer'>
-                Music
-              </p>
-              <p
-                // onClick={() => handleClick('/podcasts')}
-                className='bg-black px-4 py-1 rounded-2xl cursor-pointer'>
-                Albums
-              </p>
-            </>
-          )}
-        </div>
-      )}
+     
+     
 
       {/* No results message */}
       {searchQuery && noResults && (

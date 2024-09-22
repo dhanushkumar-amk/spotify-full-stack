@@ -1,6 +1,6 @@
 import {createContext, useEffect, useRef, useState} from 'react';
 import axios from 'axios';
-import {toast} from 'react-toastify';
+// import {toast} from 'react-toastify';
 
 export const PlayerContext = createContext();
 
@@ -26,6 +26,10 @@ const PlayerContextProvider = (props) => {
     currentTime: {second: 0, minute: 0},
     totalTime: {second: 0, minute: 0},
   });
+
+  
+  const [queue, setQueue] = useState([]);
+  const [isMuted, setIsMuted] = useState(false);
 
   // const [lyrics, setLyrics] = useState('');
 
@@ -222,17 +226,48 @@ const next = async () => {
     setIsLoggedIn(false);
   };
 
-  const fetchLyrics = async (artist, title) => {
-    try {
-      const response = await axios.get(
-        `https://api.lyrics.ovh/v1/${artist}/${title}`
-      );
-      setLyrics(response.data.lyrics || 'Lyrics not found.');
-    } catch (error) {
-      console.error('Error fetching lyrics:', error);
-      setLyrics('Error fetching lyrics.');
+   // Function to add a song to the queue
+   const addToQueue = (song) => {
+    setQueue((prevQueue) => [...prevQueue, song]);
+  };
+
+  // Function to play the next song in the queue
+  const playNextInQueue = () => {
+    if (queue.length > 0) {
+      const nextSong = queue[0]; // Get the next song
+      setTrack(nextSong);
+      setQueue((prevQueue) => prevQueue.slice(1)); // Remove it from the queue
+      audioRef.current.play();
     }
   };
+
+  // Mute/Unmute functionality
+  const toggleMute = () => {
+    setIsMuted((prev) => !prev);
+    audioRef.current.volume = isMuted ? volume : 0; // Set volume to 0 or previous volume
+  };
+
+  // UseEffect to handle song end
+  useEffect(() => {
+    const handleEnded = () => {
+      if (isLooping) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+      } else {
+        // Play next song in the queue if available
+        playNextInQueue();
+        seekBar.current.style.width = '0%'; // Reset seek bar
+      }
+    };
+
+    const audio = audioRef.current;
+    if (audio) {
+      audio.addEventListener('ended', handleEnded);
+      return () => {
+        audio.removeEventListener('ended', handleEnded);
+      };
+    }
+  }, [isLooping, queue]);
 
   const contextValue = {
     audioRef,
@@ -269,6 +304,10 @@ const next = async () => {
     isLoggedIn,
     handleLogin,
     handleLogout,
+  addToQueue ,
+  playNextInQueue,
+  toggleMute,
+    
   };
 
   return (
