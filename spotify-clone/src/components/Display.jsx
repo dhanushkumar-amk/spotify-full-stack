@@ -5,6 +5,8 @@ import DisplayAlbum from './DisplayAlbum'
 import { useContext } from 'react'
 import { PlayerContext } from '../context/PlayerContext'
 import Contact from './Contact'
+import Blog from './Blog'
+import Faq from './Faq'
 // import { albumsData } from '../assets/assets'
 
 const Display = () => {
@@ -35,6 +37,14 @@ const Display = () => {
         <Route
                 path='/contact'
                 element={<Contact />}
+              />
+        <Route
+                path='/blog'
+                element={<Blog />}
+              />
+        <Route
+                path='/faq'
+                element={<Faq />}
               />
       </Routes>
     </div>

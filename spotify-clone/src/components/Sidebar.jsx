@@ -45,12 +45,7 @@ const Sidebar = () => {
           <FaHome className='text-[18px]' /> {/* Home Icon */}
           <p>Home</p>
         </div>
-        <div
-          className='flex items-center gap-3 text-white cursor-pointer mb-4'
-          onClick={() => navigate('/about')}>
-          <FaInfoCircle className='text-[18px]' /> {/* About Icon */}
-          <p>About</p>
-        </div>
+       
         <div
           className='flex items-center gap-3 text-white cursor-pointer mb-4'
           onClick={() => navigate('/blog')}>
