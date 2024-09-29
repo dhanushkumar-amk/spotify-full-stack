@@ -4,6 +4,7 @@ import DisplayHome from './DisplayHome'
 import DisplayAlbum from './DisplayAlbum'
 import { useContext } from 'react'
 import { PlayerContext } from '../context/PlayerContext'
+import Contact from './Contact'
 // import { albumsData } from '../assets/assets'
 
 const Display = () => {
@@ -30,6 +31,11 @@ const Display = () => {
       <Routes>
         <Route path='/' element={<DisplayHome />} />
         <Route path='/album/:id' element={<DisplayAlbum album={albumsData.find((x) => (x._id == albumId))}/>} />
+    
+        <Route
+                path='/contact'
+                element={<Contact />}
+              />
       </Routes>
     </div>
   )

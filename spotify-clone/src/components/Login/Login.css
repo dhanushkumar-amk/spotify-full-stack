@@ -69,7 +69,7 @@
 
 .login-popup-inputs input {
   outline: none;
-  border: 1px solid #dcdcdc;
+  border: 1px solid rgb(21, 57, 1);
   padding: 12px;
   border-radius: 6px;
   font-size: 14px;
@@ -80,14 +80,17 @@
   align-items: center;
   gap: 10px;
   font-size: 14px;
+  
+
 }
 
 .login-popup-condition input {
   margin: 0;
+  
 }
 
 .login-popup p span {
-  color: #1db954; /* Spotify green */
+  color: #032f12; /* Spotify green */
   font-weight: 500;
   cursor: pointer;
   text-decoration: underline;
@@ -95,6 +98,11 @@
 
 .login-popup p span:hover {
   color: #1aa34a;
+}
+
+input[type='checkbox'] {
+  accent-color: Green;
+  zoom: 1;
 }
 
 @keyframes fadeIn {

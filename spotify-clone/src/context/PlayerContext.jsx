@@ -33,6 +33,9 @@ const PlayerContextProvider = (props) => {
 
   // const [lyrics, setLyrics] = useState('');
 
+  
+  
+  
   // Persist user login status
   useEffect(() => {
     const storedToken = localStorage.getItem('token');

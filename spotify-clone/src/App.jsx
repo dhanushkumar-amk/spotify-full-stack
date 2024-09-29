@@ -11,6 +11,7 @@ import Premium from './components/premium/Premium';
 import Profile from './components/Profile'; 
 import  toast, {Toaster}  from 'react-hot-toast';
 
+
 const App = () => {
   const {audioRef, track, songsData} = useContext(PlayerContext);
   const location = useLocation();
@@ -59,6 +60,9 @@ const App = () => {
                 path='/profile'
                 element={<Profile />}
               />
+              
+             
+              
               {/* Add other routes here */}
             </Routes>
             {!isPremiumPage && <Display />}

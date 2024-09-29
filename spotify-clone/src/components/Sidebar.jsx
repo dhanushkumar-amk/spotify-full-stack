@@ -1,71 +1,81 @@
-import React from 'react';
-import {useNavigate} from 'react-router-dom';
-import {assets} from '../assets/assets'; // Adjust the path if necessary
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaInfoCircle, FaBlog, FaQuestionCircle, FaEnvelope, FaHome, FaUser } from 'react-icons/fa'; // Importing icons
+import { PlayerContext } from '../context/PlayerContext';
+import toast from 'react-hot-toast';
 
 const Sidebar = () => {
   const navigate = useNavigate();
-
+  
+  const {
+    token,
+    
+  } = useContext(PlayerContext);
+  
+  // Navigate to profile page
+  const goToProfile = () => {
+    if (token) {
+      navigate('/profile');
+    }
+    else{
+      toast.error("pls login")
+    }
+  };
   return (
     <div className='w-[25%] h-full p-2 flex-col gap-2 text-white hidden lg:flex'>
-      {/* Top section with Home and Search */}
-      <div className='bg-[#121212] h-[15%] rounded flex flex-col justify-around'>
+      {/* Top section with Home and Spotify Logo */}
+      <div className='bg-[#121212] h-[15%] rounded flex flex-col justify-center items-center'>
         <div
-          onClick={() => navigate('/')}
-          className='flex items-center gap-3 pl-8 cursor-pointer'>
+          onClick={() => navigate('/')} // Navigate to Home on click
+          className='cursor-pointer'>
           <img
             className='w-40'
             src='https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg'
             alt='Spotify Logo'
           />
         </div>
-        {/* <div className='flex items-center gap-3 pl-8 cursor-pointer'>
-          <img
-            className='w-6'
-            src={assets.search_icon}
-            alt=''
-          />
-          <p className='font-bold'>Search</p>
-        </div> */}
       </div>
 
-      {/* Library and Additional Sections */}
-      <div className='bg-[#121212] h-[85%] rounded mt-4'>
-        {/* Your Library Section */}
-        <div className='p-4 flex items-center justify-between'>
-          <div className='flex items-center gap-3'>
-            <img
-              className='w-8'
-              src={assets.stack_icon}
-              alt=''
-            />
-            <p className='font-semibold'>Your Library</p>
-          </div>
-        </div>
-
-        {/* Playlists Section */}
-        <div className='p-4 bg-[#242424] m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4'>
-          <h1>Create your first playlist</h1>
-          <p className='font-light'>It's easy, we will help you</p>
-          <button className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'>
-            Create Playlist
-          </button>
-        </div>
-
-        {/* Podcasts Section */}
-        <div className='p-4 bg-[#242424] m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4'>
-          <h1>Let's find some podcasts to follow</h1>
-          <p className='font-light'>We'll keep you updated on new episodes</p>
-          <button className='px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4'>
-            Browse Podcasts
-          </button>
-        </div>
-
-        {/* Liked Albums Section */}
+      {/* Quick Links Section */}
+      <div className='bg-[#121212] h-[85%] rounded mt-4 flex flex-col justify-center items-center p-6'>
         <div
-          onClick={() => navigate('/liked-albums')}
-          className='p-4 bg-[#242424] m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4 cursor-pointer'>
-          <h1>Liked Albums</h1>
-          <p className='font-light'>View all your liked albums</p>
+          className='flex items-center gap-3 text-white cursor-pointer mb-4'
+          onClick={() => navigate('/')} // Home link
+        >
+          <FaHome className='text-[18px]' /> {/* Home Icon */}
+          <p>Home</p>
+        </div>
+        <div
+          className='flex items-center gap-3 text-white cursor-pointer mb-4'
+          onClick={() => navigate('/about')}>
+          <FaInfoCircle className='text-[18px]' /> {/* About Icon */}
+          <p>About</p>
+        </div>
+        <div
+          className='flex items-center gap-3 text-white cursor-pointer mb-4'
+          onClick={() => navigate('/blog')}>
+          <FaBlog className='text-[18px]' /> {/* Blog Icon */}
+          <p>Blog</p>
+        </div>
+        <div
+          className='flex items-center gap-3 text-white cursor-pointer mb-4'
+          onClick={() => navigate('/faq')}>
+          <FaQuestionCircle className='text-[18px]' /> {/* FAQ Icon */}
+          <p>FAQ</p>
+        </div>
+        <div
+          className='flex items-center gap-3 text-white cursor-pointer mb-4'
+          onClick={() => navigate('/contact')}>
+          <FaEnvelope className='text-[18px]' /> {/* Contact Icon */}
+          <p>Contact</p>
+        </div>
+        
+        <div
+          className='flex items-center gap-3 text-white cursor-pointer mb-4'
+          onClick={goToProfile}
+          >
+          <FaUser className='text-[18px]' /> {/* Contact Icon */}
+          <p>Profile</p>
         </div>
       </div>
     </div>

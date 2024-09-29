@@ -1,6 +1,8 @@
-import React, { useState } from 'react'; 
-import { useNavigate } from 'react-router-dom'; 
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import './Preminum.css';
+import toast from 'react-hot-toast';
+
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -16,38 +18,89 @@ const Premium = () => {
     setShowPopup(false);
   };
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    formData.append('access_key', '1c3cbdab-d1c4-4382-ae9e-ab51a3ed67e6');
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: json,
+    }).then((res) => res.json());
+
+    if (res.success) {
+      toast.success(' ✅  Success', res);
+      handleClosePopup(true)
+    }
+  };
+
   return (
     <div className='container'>
-      <button className='back-button' onClick={() => navigate('/')}>
+      <button
+        className='back-button'
+        onClick={() => navigate('/')}>
         Back
       </button>
       <header className='header'>
         <h1 className='title'>Get Admin Access And Enjoy The Spotify</h1>
-        <p className='subtitle'>Enjoy ad-free music, offline listening, and more!</p>
+        <p className='subtitle'>
+          Enjoy ad-free music, offline listening, and more!
+        </p>
       </header>
       <section className='plans'>
-        {['Individual', 'Family', 'Student'].map((plan) => (
-          <div className='plan-card' key={plan}>
+        {['Normal', 'Intermediate', 'Pro'].map((plan) => (
+          <div
+            className='plan-card'
+            key={plan}>
             <h2 className='plan-title'>{plan}</h2>
-            <p className='price'>${plan === 'Individual' ? '9.99' : plan === 'Family' ? '14.99' : '4.99'}/month</p>
+            <p className='price'>
+              $
+              {plan === 'Normal'
+                ? '49.99'
+                : plan === 'Intermediate'
+                ? '70.99'
+                : '99.99'}
+              /month
+            </p>
             <ul className='features'>
-              {plan === 'Individual' && <>
-                <li>Ad-free music</li>
-                <li>Offline listening</li>
-                <li>Unlimited skips</li>
-                <li>High-quality audio</li>
-              </>}
-              {plan === 'Family' && <>
-                <li>All Individual benefits</li>
-                <li>Up to 6 accounts</li>
-                <li>Parental controls</li>
-              </>}
-              {plan === 'Student' && <>
-                <li>All Individual benefits</li>
-                <li>For eligible students</li>
-              </>}
+              {plan === 'Normal' && (
+                <>
+                  <li>Add Song</li>
+                  <li>Delete song</li>
+                  <li>Add Album</li>
+                  <li>Delete Album</li>
+                </>
+              )}
+              {plan === 'Intermediate' && (
+                <>
+                  <li>Manage Song</li>
+                  <li>Manage Album</li>
+                  <li>Manage Ui</li>
+                  <li>Manage User FeedBack</li>
+                </>
+              )}
+              {plan === 'Pro' && (
+                <>
+                  <li>All Individual benefits</li>
+                  <li>Discount Available</li>
+                  <li>Manager User Info</li>
+                  <li>Direct Access to Admin</li>
+                </>
+              )}
             </ul>
-            <button onClick={() => handleSubscribe(plan)} className='subscribe-button'>Subscribe</button>
+            <button
+              onClick={() => handleSubscribe(plan)}
+              className='subscribe-button'>
+              Subscribe
+            </button>
           </div>
         ))}
       </section>
@@ -56,12 +109,40 @@ const Premium = () => {
       {showPopup && (
         <div className='popup-overlay'>
           <div className='popup-content'>
-            <button className='close-button' onClick={handleClosePopup}>✖</button>
+            <button
+              className='close-button'
+              onClick={handleClosePopup}>
+              ✖
+            </button>
             <h2>Subscribe to {selectedPlan} Plan</h2>
-            <p>You'll receive an email with details about the {selectedPlan} plan.</p>
-            <input type='email' placeholder='Enter your email' className='email-input' />
-            <button onClick={handleClosePopup} className='confirm-button'>Got it!</button>
-            <p>Subscribe to our waiting list, and you'll soon receive an email from us!</p>
+            <p>
+              You'll receive an email with details about the {selectedPlan}{' '}
+              plan.
+            </p>
+            <form onSubmit={onSubmit}>
+            <input type="hidden" name="subject" value="New Mail from Spotify Premium"/>
+            <input type="text" hidden value={selectedPlan} name='plan ' />
+            <input type="text" hidden value="they are added to the waiting list" name='normal information' />
+            
+              <input
+                type='email'
+                placeholder='Enter your email'
+                className='email-input'
+                name="email"
+              />
+
+              <button
+              type='submit'
+                // onClick={handleClosePopup}
+                className='confirm-button'>
+                Got it!
+              </button>
+            </form>
+
+            <p>
+              Subscribe to our waiting list, and you'll soon receive an email
+              from us!
+            </p>
           </div>
         </div>
       )}
@@ -69,7 +150,11 @@ const Premium = () => {
       <footer className='footer'>
         <p>
           Have any questions?{' '}
-          <a href='/support' className='link'>Contact Support</a>
+          <a
+            onClick={() => navigate('/contact')}
+            className='link'>
+            Contact Support
+          </a>
         </p>
       </footer>
     </div>

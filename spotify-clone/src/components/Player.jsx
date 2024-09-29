@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import { assets } from '../assets/assets';
 
 const Player = () => {
+ 
+  
   const {
     track,
     seekBar,
@@ -25,7 +27,8 @@ const Player = () => {
     addToQueue,
     toggleMute,
     isMuted,
-    downloadSongFromCloudinary,
+    // handleDownload,
+    // downloadSongFromCloudinary,
     token,
   } = useContext(PlayerContext);
 
@@ -72,7 +75,7 @@ const Player = () => {
       return;
     }
     if (track) {
-      downloadSongFromCloudinary(track._id);
+      // downloadSongFromCloudinary(track._id);
       toast.success('Downloading...');
     } else {
       toast.error('No track selected for download');
@@ -212,10 +215,11 @@ const Player = () => {
         />
         {track && (
           <FaDownload
-            onClick={handleDownload}
+          // onClick={() => handleDownload(track._id)}
+          download={assets.arrow_icon}
             className='w-4 cursor-pointer'
             title='Download'
-            download
+            // download
           />
         )}
       </div>

@@ -45,7 +45,7 @@ const Navbar = ({ setShowLogin }) => {
     // If the search input is cleared
     if (query.trim() === '') {
       setSearchResults([]); // Reset search results
-      setNoResults(false); // Reset no results message
+      setNoResults(true); // Reset no results message
       navigate('/'); // Navigate back to home
     }
   };
@@ -57,7 +57,7 @@ const Navbar = ({ setShowLogin }) => {
       const results = await handleSearch(searchQuery);
       setSearchResults(results);
       setNoResults(results.length === 0);
-      toast.info(`Searching for: ${searchQuery}`);
+      toast.error(`Searching for: ${searchQuery}`);
     }
   };
 
@@ -66,12 +66,7 @@ const Navbar = ({ setShowLogin }) => {
     window.location.href = 'https://www.spotify.com/download';
   };
 
-  // Navigate to profile page
-  const goToProfile = () => {
-    if (token) {
-      navigate('/profile');
-    }
-  };
+
 
   return (
     <>
@@ -132,7 +127,7 @@ const Navbar = ({ setShowLogin }) => {
               <div className='navbar-profile cursor-pointer'>
                 <p
                   className='bg-green-500 text-black w-7 h-7 rounded-full flex items-center justify-center'
-                  onClick={goToProfile} // Add click handler to navigate to profile
+                  // onClick={goToProfile} // Add click handler to navigate to profile
                 >
                   {/* Display profile picture if available, otherwise default icon */}
                   {profilePic ? (
