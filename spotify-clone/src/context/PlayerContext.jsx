@@ -1,6 +1,5 @@
 import {createContext, useEffect, useRef, useState} from 'react';
 import axios from 'axios';
-// import {toast} from 'react-toastify';
 
 export const PlayerContext = createContext();
 
@@ -8,6 +7,7 @@ const PlayerContextProvider = (props) => {
   const audioRef = useRef();
   const seekBg = useRef();
   const seekBar = useRef();
+  //the url of the backend 
   const url = 'https://spotify-backend-1-igxg.onrender.com';
 
   const [songsData, setSongsData] = useState([]);
@@ -58,6 +58,8 @@ const PlayerContextProvider = (props) => {
     }
   };
 
+  
+  // pause functionality
   const pause = () => {
     if (audioRef.current) {
       audioRef.current.pause();
@@ -77,7 +79,7 @@ const PlayerContextProvider = (props) => {
     setPlayStatus(true);
 }
 
-
+// go to previous function
   const previous = async () => {
     songsData.map(async (item, index) => {
         if (track._id === item._id && index > 0) {
@@ -88,6 +90,7 @@ const PlayerContextProvider = (props) => {
     })
 
 }
+//  go to the next song 
 
 const next = async () => {
     songsData.map(async (item, index) => {
@@ -205,7 +208,7 @@ const next = async () => {
 
     setFilteredSongs(
       songsData.filter(
-        (song) => searchInText(song.name) || searchInText(song.desc)
+        (song) => searchInText(song.name) || searchInText(song.desc) 
       )
     );
 

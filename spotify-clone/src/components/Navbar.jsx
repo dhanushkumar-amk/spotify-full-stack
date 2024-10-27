@@ -43,7 +43,7 @@ const Navbar = ({ setShowLogin }) => {
     setSearchQuery(query);
 
     // If the search input is cleared
-    if (query.trim() === '') {
+    if (query.trim() == ' ') {
       setSearchResults([]); // Reset search results
       setNoResults(true); // Reset no results message
       navigate('/'); // Navigate back to home
@@ -135,6 +135,7 @@ const Navbar = ({ setShowLogin }) => {
                       src={profilePic}
                       alt='Profile'
                       className='w-full h-full rounded-full object-cover'
+                      onClick={() => navigate('/profile')}
                     />
                   ) : (
                     <FiUser />
