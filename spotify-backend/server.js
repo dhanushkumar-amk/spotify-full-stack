@@ -23,6 +23,7 @@ app.use('/api/album', albumRouter);
 app.use('/api/user', userRouter);
 
 
+// check if api is working or not
 app.get('/', (req, res) => res.send('API Working'));
 
 app.listen(port, () => console.log(`Server started on ${port}`));
